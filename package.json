@@ -1,0 +1,79 @@
+{
+  "name": "nestjs-config-module",
+  "version": "0.0.0",
+  "description": "Configuration module for Nest framework (node.js)",
+  "repository": "koenig-dominik/nestjs-config-module",
+  "keywords": [
+    "nest",
+    "config",
+    "module",
+    "node",
+    "typescript",
+    "ts"
+  ],
+  "author": {
+    "name": "Dominik König",
+    "url": "https://github.com/koenig-dominik"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/koenig-dominik/nestjs-config-module/issues"
+  },
+  "homepage": "https://github.com/koenig-dominik/nestjs-config-module#readme",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rimraf -rf dist && tsc -p tsconfig.build.json",
+    "lint": "eslint 'lib/**/*.ts' --fix",
+    "test": "jest --config ./tests/jest-e2e.json",
+    "prepublish:npm": "npm run build",
+    "prerelease": "npm run build",
+    "release": "release-it"
+  },
+  "optionalDependencies": {
+    "env-json-parser": "^1.0.1"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^6.10.0 || ^7.0.0",
+    "reflect-metadata": "0.1.13",
+    "class-transformer": "^0.2.3",
+    "class-validator": "^0.12.1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-angular": "^8.3.4",
+    "@types/jest": "^25.2.1",
+    "@types/node": "^13.13.5",
+    "@typescript-eslint/eslint-plugin": "^2.31.0",
+    "@typescript-eslint/parser": "^2.31.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.20.2",
+    "husky": "^4.2.5",
+    "jest": "^25.5.4",
+    "lint-staged": "^10.2.2",
+    "prettier": "^2.0.5",
+    "release-it": "^13.5.7",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^25.5.0",
+    "typescript": "^3.8.3",
+    "@nestjs/common": "7.0.9",
+    "@nestjs/core": "7.0.9",
+    "@nestjs/platform-express": "7.0.9",
+    "@nestjs/testing": "7.0.9",
+    "reflect-metadata": "0.1.13",
+    "class-transformer": "^0.2.3",
+    "class-validator": "^0.12.1"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -c .commitlintrc.json -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
+  }
+}
