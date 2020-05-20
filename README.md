@@ -89,13 +89,13 @@ For the documentation on how to use the envJsonLoader see: [env-json-parser](htt
 It's also possible to implement your own loader, it just needs to be a function that returns a Promise which resolves an object
 
 ```typescript
-  ConfigModule.forRoot({
-    isGlobal: true,
-    loader: (): Promise<object> => {
-      return Promise.resolve({
-        host: 'localhost'
-      })
-    },
-    schema: Configuration,
-  })
+ConfigModule.forRoot({
+  isGlobal: true,
+  loader: (): Promise<object> => {
+    return Promise.resolve({
+      host: 'localhost'
+   })
+  },
+  schema: Configuration,
+})
 ``` 
