@@ -36,7 +36,7 @@
   "peerDependencies": {
     "@nestjs/common": "^6.10.0 || ^7.0.0",
     "reflect-metadata": "0.1.13",
-    "class-transformer": "^0.2.3",
+    "class-transformer": "^0.3.1",
     "class-validator": "^0.12.1"
   },
   "devDependencies": {
@@ -62,7 +62,7 @@
     "@nestjs/platform-express": "7.0.13",
     "@nestjs/testing": "7.0.13",
     "reflect-metadata": "0.1.13",
-    "class-transformer": "^0.2.3",
+    "class-transformer": "^0.3.1",
     "class-validator": "^0.12.1"
   },
   "lint-staged": {
