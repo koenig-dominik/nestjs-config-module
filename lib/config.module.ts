@@ -12,12 +12,6 @@ export interface ConfigurationModuleOptions<T> {
     validatorOptions?: ValidatorOptions;
 }
 
-export enum EXIT_CODE {
-    LOAD = 100, // Exit code needs to be > 0 to count as an error
-    SERIALIZATION,
-    VALIDATION,
-}
-
 export class ConfigModule {
 
     private static readonly logger = new Logger(ConfigModule.name, true);
@@ -28,16 +22,14 @@ export class ConfigModule {
         try {
             configContent = await options.loader();
         } catch(error) {
-            this.logger.error(`Configuration loader failed with error. ${error.message}`);
-            process.exit(EXIT_CODE.LOAD);
+            throw new Error(`Configuration loader failed with error. ${error.message}`);
         }
 
         let config: T;
         try {
             config = plainToClass(options.schema, configContent);
         } catch(error) {
-            this.logger.error(`Failed to serialize loaded object to config schema. ${error.message}`);
-            process.exit(EXIT_CODE.SERIALIZATION);
+            throw new Error(`Failed to serialize loaded object to config schema. ${error.message}`);
         }
 
         try {
@@ -50,11 +42,10 @@ export class ConfigModule {
             })
         } catch(error) {
             if (error instanceof Array) { // validateOrReject rejects an array
-                this.logger.error(`Configuration validation error\n${error.join('')}`);
+                throw new Error(`Configuration validation error\n${error.join('')}`);
             } else {
-                this.logger.error('Configuration validation error', error);
+                throw new Error(`Configuration validation error: ${error}`);
             }
-            process.exit(EXIT_CODE.VALIDATION);
         }
 
         const providers: ValueProvider[] = [{
