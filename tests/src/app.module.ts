@@ -7,7 +7,7 @@ export class AppModule {
     constructor(
     ) {}
 
-    static withEnvJsonLoader(): DynamicModule {
+    static withValidEnvJsonLoader(): DynamicModule {
         return {
             module: AppModule,
             imports: [
@@ -19,12 +19,24 @@ export class AppModule {
         };
     }
 
-    static withJsonFileLoader(): DynamicModule {
+    static withValidJsonFileLoader(): DynamicModule {
         return {
             module: AppModule,
             imports: [
                 ConfigModule.forRoot({
                     loader: jsonFileLoaderFactory('tests/src/valid.json'),
+                    schema: Configuration
+                }),
+            ],
+        };
+    }
+
+    static withInvalidJsonFileLoader(): DynamicModule {
+        return {
+            module: AppModule,
+            imports: [
+                ConfigModule.forRoot({
+                    loader: jsonFileLoaderFactory('tests/src/invalid.json'),
                     schema: Configuration
                 }),
             ],

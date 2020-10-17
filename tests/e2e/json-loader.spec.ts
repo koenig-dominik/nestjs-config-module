@@ -10,7 +10,7 @@ describe('json file loader', () => {
 
     beforeEach(async () => {
         const module = await Test.createTestingModule({
-            imports: [AppModule.withJsonFileLoader()],
+            imports: [AppModule.withValidJsonFileLoader()],
         }).compile();
 
         data.app = module.createNestApplication();

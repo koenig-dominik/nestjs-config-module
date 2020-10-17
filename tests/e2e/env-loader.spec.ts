@@ -13,7 +13,7 @@ describe('env json loader', () => {
         loadValidEnv();
 
         const module = await Test.createTestingModule({
-            imports: [AppModule.withEnvJsonLoader()],
+            imports: [AppModule.withValidEnvJsonLoader()],
         }).compile();
 
         data.app = module.createNestApplication();
