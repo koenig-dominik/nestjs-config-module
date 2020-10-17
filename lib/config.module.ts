@@ -3,19 +3,18 @@ import { plainToClass } from 'class-transformer';
 import { validateOrReject, ValidatorOptions } from 'class-validator';
 
 export type LoaderFunction = () => Promise<Record<string, unknown>>;
-export type ConfigurationSchema<T> = { new (...args: any[]): T };
 
 export interface ConfigurationModuleOptions<T> {
   isGlobal?: boolean;
   loader: LoaderFunction;
-  schema: ConfigurationSchema<T>;
+  schema: Type<T>;
   validatorOptions?: ValidatorOptions;
 }
 
 export class ConfigModule {
   private static readonly logger = new Logger(ConfigModule.name, true);
 
-  static async forRoot<T extends Type<unknown>>(
+  static async forRoot<T>(
     options: ConfigurationModuleOptions<T>,
   ): Promise<DynamicModule> {
     let configContent;
@@ -27,7 +26,7 @@ export class ConfigModule {
       );
     }
 
-    let config: T;
+    let config: InstanceType<Type<T>>;
     try {
       config = plainToClass(options.schema, configContent);
     } catch (error) {
@@ -55,7 +54,7 @@ export class ConfigModule {
 
     const providers: ValueProvider[] = [
       {
-        provide: config.constructor,
+        provide: (config as any).constructor,
         useValue: config,
       },
     ];
@@ -64,7 +63,7 @@ export class ConfigModule {
     for (const provider of providers) {
       this.logger.debug(
         `Providing configuration namespace ${
-          (provider.provide as Type<unknown>).name
+          (provider.provide as Type<T>).name
         }`,
       );
     }
@@ -78,10 +77,10 @@ export class ConfigModule {
   }
 
   private static unwrapNestedClassToValueProviders(
-    object: Type<unknown>,
+    object: InstanceType<Type<unknown>>,
   ): ValueProvider[] {
     const providers: ValueProvider[] = [];
-    for (const value of Object.values(object)) {
+    for (const value of Object.values(object as Record<string, unknown>)) {
       if (
         typeof value !== 'object' ||
         value instanceof Array ||
