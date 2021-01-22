@@ -36,7 +36,8 @@ export class ConfigModule {
     }
 
     try {
-      await validateOrReject(config, {
+      // eslint-disable-next-line @typescript-eslint/ban-types
+      await validateOrReject(config as Object, {
         ...{
           whitelist: true,
           forbidNonWhitelisted: true,
