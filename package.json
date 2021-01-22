@@ -24,7 +24,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "rimraf -rf dist && tsc -p tsconfig.build.json",
-    "lint": "eslint 'lib/**/*.ts' --fix",
+    "lint": "eslint \"lib/**/*.ts\" --fix",
     "test": "jest --config ./tests/jest-e2e.json",
     "prepublish:npm": "npm run build",
     "prerelease": "npm run build",
