@@ -44,7 +44,7 @@
     "@commitlint/config-angular": "^11.0.0",
     "@nestjs/common": "7.6.5",
     "@nestjs/core": "7.6.5",
-    "@nestjs/platform-express": "7.6.5",
+    "@nestjs/platform-express": "9.2.1",
     "@nestjs/testing": "7.6.5",
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.22",
